@@ -20,23 +20,7 @@ function reducer(state: StateType, action: ActionType): StateType {
         layout: state.layout.filter((item) => item.i !== action.payload),
       };
       break;
-    case actionTypes.setLayout:
-      // const layoutData: Layout[] = action.payload;
-      // newState = {
-      //   layout: layoutData.map((layoutItem: any) => {
-      //     const newLayout = state.layout.map((item) => {
-      //       if (layoutItem.i === item.i && layoutItem.y < 2) {
-      //         layoutItem = {
-      //           ...item,
-      //           x: layoutItem.x,
-      //           y: layoutItem.y,
-      //         };
-      //         return layoutItem;
-      //       }
-      //     });
-      //     return layoutItem;
-      //   }),
-      // };
+     
       case actionTypes.setLayout:
       const layoutData = action.payload;
       newState = {
@@ -51,7 +35,7 @@ function reducer(state: StateType, action: ActionType): StateType {
           return item;
         }),
       };
-      break;
+      
       break;
   }
   localStorage.setItem("state", JSON.stringify(newState));
@@ -60,19 +44,3 @@ function reducer(state: StateType, action: ActionType): StateType {
 
 export default reducer;
 
-
-// case actionTypes.setLayout:
-//       const layoutData = action.payload;
-//       newState = {
-//         layout: state.layout.map((item) => {
-//           if (layoutData.i === item.i && layoutData.y <= 2) {
-//             return {
-//               ...item,
-//               x: layoutData.x,
-//               y: layoutData.y,
-//             };
-//           }
-//           return item;
-//         }),
-//       };
-//       break;
