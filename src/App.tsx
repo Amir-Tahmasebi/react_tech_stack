@@ -1,26 +1,20 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useLayoutEffect } from "react";
+import useAppState from "./state/useAppState";
+import { setInitState } from "./state/actionHandler";
+import Layout from "./components/Layout";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const { dispatch } = useAppState();
+
+  useLayoutEffect(() => {
+    if (localStorage.getItem("state")) {
+      dispatch(
+        setInitState(JSON.parse(localStorage.getItem("state") as string))
+      );
+    }
+  }, []);
+
+  return <Layout />;
 }
 
 export default App;
