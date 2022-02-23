@@ -5,11 +5,9 @@ import AddButton from "../AddButton";
 import { deleteItem, setLayout } from "../../state/actionHandler";
 import { AiFillDelete } from "react-icons/ai";
 import "./layout.scss";
-import { useState } from "react";
 
 export default function ListItem() {
   const { state, dispatch } = useAppState();
-  const [isSetlayout, setIsSetlayout] = useState<boolean>(false);
   const handleDeleteItem = (id: string) => {
     dispatch(deleteItem(id));
   };
@@ -23,15 +21,8 @@ export default function ListItem() {
       <p>User {item.count}</p>
     </section>
   ));
-  const onLayoutChange = (layout: Layout[]) => {
-    layout.map((item) => {
-      if (item.x !== 0 || item.y !== 0) {
-        setIsSetlayout(true);
-      }
-    });
-    if (isSetlayout) {
-      dispatch(setLayout(layout));
-    }
+  const onDragStop = (items: Layout[], prev: Layout, after: Layout) => {
+    dispatch(setLayout(after));
   };
 
   return (
@@ -42,9 +33,11 @@ export default function ListItem() {
           className="layout"
           layout={state.layout}
           cols={6}
-          rowHeight={100}
+          rowHeight={80}
           width={1200}
-          onLayoutChange={onLayoutChange}
+          // onLayoutChange={onLayoutChange}
+          maxRows={2}
+          onDragStop={onDragStop}
         >
           {renderItems}
         </GridLayout>

@@ -18,7 +18,7 @@ const deleteItem = (id: string): ActionType => ({
   payload: id,
 });
 
-const setLayout = (layout: Layout[]): ActionType => ({
+const setLayout = (layout: Layout): ActionType => ({
   type: actionTypes.setLayout,
   payload: layout,
 });
