@@ -1,11 +1,15 @@
 import { addItem } from "./../../state/actionHandler";
-import useAppState from "./../../state/useAppState";
+// import useAppState from "./../../state/useAppState";
 import { v4 as uuid } from "uuid";
 import { IoMdAddCircle } from "react-icons/io";
 import { useState } from "react";
+import { useTypedSelector } from "../../hook/useSelector";
+import { useDispatch } from "react-redux";
 
 export default function AddButton() {
-  const { state, dispatch } = useAppState();
+  // const { state, dispatch } = useAppState();
+  const state = useTypedSelector((state) => state.data);
+  const dispatch = useDispatch()
   const [x, setX] = useState<number>(0);
   const [count, setCount] = useState<number>(
     state.layout[state.layout.length - 1].count + 1

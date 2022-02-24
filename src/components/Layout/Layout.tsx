@@ -1,17 +1,20 @@
 import GridLayout, { Layout } from "react-grid-layout";
-import useAppState from "./../../state/useAppState";
+// import useAppState from "./../../state/useAppState";
 import { Item } from "./../../state/State.type";
 import AddButton from "../AddButton";
 import { deleteItem, setLayout } from "../../state/actionHandler";
 import { AiFillDelete } from "react-icons/ai";
 import "./layout.scss";
+import { useDispatch } from "react-redux";
+import { useTypedSelector } from "./../../hook/useSelector";
 
 export default function ListItem() {
-  const { state, dispatch } = useAppState();
+  // const { state, dispatch } = useAppState();
+  const dispatch = useDispatch();
+  const state = useTypedSelector((state) => state.data);
   const handleDeleteItem = (id: string) => {
     dispatch(deleteItem(id));
   };
-
   const renderItems = state.layout.map((item: Item) => (
     <section className="card-container" key={item.i}>
       <AiFillDelete
@@ -35,7 +38,6 @@ export default function ListItem() {
           cols={6}
           rowHeight={80}
           width={1200}
-          // onLayoutChange={onLayoutChange}
           maxRows={2}
           onDragStop={onDragStop}
         >

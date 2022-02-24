@@ -1,27 +1,30 @@
 import ActionType from "./Action.type";
 import actionTypes from "./actionTypes";
 import StateType from "./State.type";
-import { Layout } from "react-grid-layout";
+import initState from "./initState";
 
-function reducer(state: StateType, action: ActionType): StateType {
+function reducer(state: StateType = initState, action: ActionType): StateType {
   let newState: StateType = state;
   switch (action.type) {
     case actionTypes.initState:
       newState = action.payload;
+      localStorage.setItem("state", JSON.stringify(newState));
       break;
     case actionTypes.addItem:
       const newItem = action.payload;
       newState = {
         layout: [...state.layout, newItem],
       };
+      localStorage.setItem("state", JSON.stringify(newState));
       break;
     case actionTypes.deleteItem:
       newState = {
         layout: state.layout.filter((item) => item.i !== action.payload),
       };
+      localStorage.setItem("state", JSON.stringify(newState));
       break;
-     
-      case actionTypes.setLayout:
+
+    case actionTypes.setLayout:
       const layoutData = action.payload;
       newState = {
         layout: state.layout.map((item) => {
@@ -35,12 +38,10 @@ function reducer(state: StateType, action: ActionType): StateType {
           return item;
         }),
       };
-      
+      localStorage.setItem("state", JSON.stringify(newState));
       break;
   }
-  localStorage.setItem("state", JSON.stringify(newState));
   return newState;
 }
 
 export default reducer;
-
